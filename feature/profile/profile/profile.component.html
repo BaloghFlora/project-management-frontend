@@ -1,0 +1,52 @@
+<div class="container py-4">
+  <h2 class="mb-4">Profile</h2>
+
+  @if (!user) {
+    <div class="alert alert-info text-center mt-4">
+      No user profile available.
+    </div>
+  } @else {
+    <div class="mt-5">
+      <div class="card mx-auto chef-form">
+        <div class="card-header text-center">
+          <i class="fas fa-user fa-3x mb-2"></i><br/>
+          <strong>{{ user.name }}</strong>
+        </div>
+
+        <div class="card-body">
+
+          <div class="mb-2">
+            <label class="form-label">Name:</label>
+            <input type="text" class="form-control" [value]="user.name" readonly/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Email:</label>
+            <input type="text" class="form-control" [value]="user.email" readonly/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Role:</label>
+            <input type="text" class="form-control" [value]="user.role" readonly/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">CNP:</label>
+            <input type="text" class="form-control" [value]="user.cnp" readonly/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Birth Date:</label>
+            <input type="date" class="form-control" [value]="birthDate" readonly/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Rating:</label>
+            <input type="number" class="form-control" [value]="user.rating" readonly/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  }
+</div>

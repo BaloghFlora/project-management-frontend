@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  @if (teamForm) {
+    <form [formGroup]="teamForm" class="card mx-auto team-form">
+      <div class="card-header text-center">
+        <i class="fas fa-user-tie fa-3x mb-2"></i><br/>
+        <strong>{{ teamForm.get('name')?.value }}</strong>
+      </div>
+
+      <div class="card-body">
+
+        <div class="mb-2">
+          <label class="form-label">Name:</label>
+          <input type="text" class="form-control" formControlName="name"/>
+          @if (teamForm.get('name')?.invalid && teamForm.get('name')?.touched) {
+            <div class="text-danger small">Name is required.</div>
+          }
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Number of Stars:</label>
+          <input type="number" class="form-control" formControlName="rating"/>
+          @if (teamForm.get('rating')?.invalid && teamForm.get('rating')?.touched) {
+            <div class="text-danger small">
+              @if (teamForm.get('rating')?.errors?.['required']) {
+                Rating is required.
+              }
+              @if (teamForm.get('rating')?.errors?.['min']) {
+                Rating must be at least 0.
+              }
+              @if (teamForm.get('rating')?.errors?.['max']) {
+                Rating cannot be more than 5.
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">CNP:</label>
+          <input type="text" class="form-control" formControlName="cnp"/>
+          @if (teamForm.get('cnp')?.invalid && teamForm.get('cnp')?.touched) {
+            <div class="text-danger small">
+              @if (teamForm.get('cnp')?.errors?.['required']) {
+                CNP is required.
+              }
+              @if (teamForm.get('cnp')?.errors?.['pattern']) {
+                CNP must contain only digits.
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Birth Date:</label>
+          <input type="date" class="form-control" formControlName="birthDate"/>
+          @if (teamForm.get('birthDate')?.invalid && teamForm.get('birthDate')?.touched) {
+            <div class="text-danger small">Birth date is required.</div>
+          }
+        </div>
+
+      </div>
+
+      <div class="card-footer d-flex justify-content-between">
+        @if (loggedUser?.role == Role.ADMIN) {
+          <button type="button" class="btn btn-outline-danger" (click)="deleteTeam()">
+            <i class="fas fa-trash"></i>
+          </button>
+        }
+        @if (loggedUser?.role == Role.ADMIN || loggedUser?.role == Role.MODERATOR) {
+          <button type="button" class="btn btn-outline-primary" [disabled]="teamForm.invalid" (click)="toggleEdit()">
+            <i class="fas" [ngClass]="editMode ? 'fa-save' : 'fa-pen'"></i>
+          </button>
+        }
+      </div>
+    </form>
+  } @else {
+    <div class="alert alert-info text-center mt-4">No team selected.</div>
+  }
+</div>

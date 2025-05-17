@@ -1,0 +1,119 @@
+<div class="container py-4">
+  <h2 class="mb-4">Chefs</h2>
+
+  <div class="mb-3">
+    <app-search-bar></app-search-bar>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-primary" (click)="toggleAddForm()">
+      <i class="fas fa-plus"></i> Add New Chef
+    </button>
+  </div>
+
+  @if (showAddForm) {
+    <div class="card card-body mb-4">
+      <form [formGroup]="addChefForm" (ngSubmit)="saveChef()">
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" formControlName="name"/>
+            @if (addChefForm.get('name')?.invalid && addChefForm.get('name')?.touched) {
+              <div class="text-danger small">
+                Name is required.
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">CNP</label>
+            <input class="form-control" formControlName="cnp"/>
+            @if (addChefForm.get('cnp')?.invalid && addChefForm.get('cnp')?.touched) {
+              <div class="text-danger small">
+                @if (addChefForm.get('cnp')?.errors?.['required']) {
+                  CNP is required.
+                }
+                @if (addChefForm.get('cnp')?.errors?.['pattern']) {
+                  CNP must contain only digits.
+                }
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Birth Date</label>
+            <input type="date" class="form-control" formControlName="birthDate"/>
+            @if (addChefForm.get('birthDate')?.invalid && addChefForm.get('birthDate')?.touched) {
+              <div class="text-danger small">Birth date is required.</div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Rating</label>
+            <input type="number" class="form-control" formControlName="rating" min="0" max="5"/>
+            @if (addChefForm.get('rating')?.invalid && addChefForm.get('rating')?.touched) {
+              <div class="text-danger small">
+                @if (addChefForm.get('rating')?.errors?.['required']) {
+                  Rating is required.
+                }
+                @if (addChefForm.get('rating')?.errors?.['min']) {
+                  Rating must be at least 0.
+                }
+                @if (addChefForm.get('rating')?.errors?.['max']) {
+                  Rating cannot be more than 5.
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="mt-3 text-end">
+          <button class="btn btn-primary" type="submit" [disabled]="addChefForm.invalid">
+            <i class="fas fa-save"></i> Save
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  @if (chefs.length > 0) {
+    <table class="table table-hover table-striped">
+      <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (chef of chefs; track chef.id) {
+          <tr>
+            <td>
+              {{ chef.name }}
+            </td>
+            <td>
+              {{ chef.numberOfStars | number: '1.1-1' }}
+              <i class="fas fa-star text-warning ms-1"></i>
+            </td>
+            <td>
+              <a [routerLink]="[chef.id]" class="btn btn-sm btn-outline-primary me-2">
+                <i class="fas fa-eye"></i>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <div class="alert alert-info text-center mt-4">No chefs available.</div>
+  }
+</div>
+
+@if (totalPages > 1) {
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+}

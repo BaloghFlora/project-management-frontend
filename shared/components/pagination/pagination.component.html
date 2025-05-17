@@ -1,0 +1,22 @@
+@if (totalPages > 1) {
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <button class="page-link" (click)="changePage(currentPage - 1)">
+          <i class="fas fa-angle-left"></i>
+        </button>
+      </li>
+
+      @for (page of pageRange(); track page){
+        <li class="page-item" [class.active]="page === currentPage">
+          <button class="page-link" (click)="changePage(page)">{{ page + 1 }}</button>
+        </li>
+      }
+      <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+        <button class="page-link" (click)="changePage(currentPage + 1)">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </li>
+    </ul>
+  </nav>
+}

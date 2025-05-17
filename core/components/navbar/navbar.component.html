@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <i class="fas fa-utensils"></i> ChefApp
+    </a>
+
+    <div class="collapse navbar-collapse show">
+      <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="ROUTES.PROFILE">
+            <i class="fas fa-user"></i> Profile
+          </a>
+        </li>
+        @if (hasChefTablePermission) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="ROUTES.CHEFS">
+              <i class="fas fa-kitchen-set"></i> Chefs
+            </a>
+          </li>
+        }
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="ROUTES.ABOUT">
+            <i class="fas fa-info-circle"></i> About
+          </a>
+        </li>
+        <li class="nav-item ms-auto">
+          <button class="nav-link" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i> Log out
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
