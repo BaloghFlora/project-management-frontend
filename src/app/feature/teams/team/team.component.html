@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  @if (teamForm) {
+    <form [formGroup]="teamForm" class="card mx-auto team-form">
+      <div class="card-header text-center">
+        <i class="fas fa-user-tie fa-3x mb-2"></i><br/>
+        <strong>{{ teamForm.get('teamName')?.value }}</strong>
+      </div>
+
+      <div class="card-body">
+
+        <div class="mb-2">
+          <label class="form-label">Team name:</label>
+          <input type="text" class="form-control" formControlName="name"/>
+          @if (teamForm.get('teamName')?.invalid && teamForm.get('teamName')?.touched) {
+            <div class="text-danger small">Team name is required.</div>
+          }
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Description:</label>
+          <input type="text" class="form-control" formControlName="name"/>
+          @if (teamForm.get('description')?.invalid && teamForm.get('description')?.touched) {
+            <div class="text-danger small">Team description is required.</div>
+          }
+        </div>
+
+
+</div>
+
+<div class="card-footer d-flex justify-content-between">
+  @if (loggedUser?.role == Role.ADMIN) {
+          <button type="button" class="btn btn-outline-danger" (click)="deleteTeam()">
+            <i class="fas fa-trash"></i>
+          </button>
+        }
+        @if (loggedUser?.role == Role.ADMIN || loggedUser?.role == Role.MODERATOR) {
+          <button type="button" class="btn btn-outline-primary" [disabled]="teamForm.invalid" (click)="toggleEdit()">
+            <i class="fas" [ngClass]="editMode ? 'fa-save' : 'fa-pen'"></i>
+          </button>
+        }
+      </div>
+    </form>
+  } @else {
+    <div class="alert alert-info text-center mt-4">No team selected.</div>
+  }
+</div>

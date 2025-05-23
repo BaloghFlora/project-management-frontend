@@ -1,0 +1,15 @@
+@if (loggedIn) {
+<app-navbar></app-navbar>
+}
+
+@if (modalService.modalState().show) {
+<app-modal
+[title]="modalService.modalState().title"
+[message]="modalService.modalState().message"
+[type]="modalService.modalState().type"
+(close)="modalService.close()"
+(accept)="modalService.accept()"
+></app-modal>
+}
+
+<router-outlet></router-outlet>
