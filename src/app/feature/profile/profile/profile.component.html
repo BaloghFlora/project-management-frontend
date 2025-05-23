@@ -1,0 +1,105 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+
+      @if (!user) {
+      <div class="alert alert-info text-center mt-4">
+        <i class="fas fa-spinner fa-spin me-2"></i>
+        Loading user profile...
+      </div>
+      } @else {
+      <div class="card shadow">
+        <div class="card-header text-center bg-primary text-white">
+          <div class="d-flex flex-column align-items-center py-3">
+            <div class="avatar-circle mb-3">
+              <i class="fas fa-user fa-3x"></i>
+            </div>
+            <h4 class="mb-1">{{ user.name }}</h4>
+              <span class="badge"
+                    [ngClass]="{
+      'bg-danger': user.role === Role.ADMIN,
+      'bg-warning': user.role === Role.PROJECT_MANAGER,
+      'bg-info': user.role === Role.TEAM_MEMBER
+      }">
+      {{ getRoleDisplayName(user.role) }}
+      </span>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-3">
+
+      <!-- User ID -->
+      <div class="col-12">
+        <label class="form-label fw-bold">
+          <i class="fas fa-hashtag me-2 text-muted"></i>User ID
+        </label>
+        <input type="text" class="form-control" [value]="user.id" readonly/>
+      </div>
+
+      <!-- Name -->
+      <div class="col-12">
+        <label class="form-label fw-bold">
+          <i class="fas fa-user me-2 text-muted"></i>Full Name
+        </label>
+        <input type="text" class="form-control" [value]="user.name" readonly/>
+      </div>
+
+      <!-- Email -->
+      <div class="col-12">
+        <label class="form-label fw-bold">
+          <i class="fas fa-envelope me-2 text-muted"></i>Email Address
+        </label>
+        <input type="email" class="form-control" [value]="user.email" readonly/>
+      </div>
+
+      <!-- Role -->
+      <div class="col-12">
+        <label class="form-label fw-bold">
+          <i class="fas fa-shield-alt me-2 text-muted"></i>Role
+        </label>
+        <input type="text" class="form-control" [value]="getRoleDisplayName(user.role)" readonly/>
+      </div>
+
+      <!-- Team Information -->
+      @if (user.teamId && user.teamName) {
+      <div class="col-md-6">
+        <label class="form-label fw-bold">
+          <i class="fas fa-users me-2 text-muted"></i>Team ID
+        </label>
+        <input type="text" class="form-control" [value]="user.teamId" readonly/>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-bold">
+          <i class="fas fa-users me-2 text-muted"></i>Team Name
+        </label>
+        <input type="text" class="form-control" [value]="user.teamName" readonly/>
+      </div>
+      } @else {
+      <div class="col-12">
+        <label class="form-label fw-bold">
+          <i class="fas fa-users me-2 text-muted"></i>Team Assignment
+        </label>
+        <div class="alert alert-warning mb-0">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          Not assigned to any team
+        </div>
+      </div>
+      }
+
+      </div>
+    </div>
+
+    <div class="card-footer bg-light">
+      <div class="row align-items-center">
+
+      </div>
+    </div>
+  </div>
+
+      }
+    </div>
+  </div>
+</div>

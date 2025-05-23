@@ -1,0 +1,122 @@
+.team-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+  .card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border: none;
+  }
+
+  .card-footer {
+    border-radius: 0 0 15px 15px !important;
+    border: none;
+  }
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+
+  &[readonly] {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    cursor: default;
+
+    &:focus {
+      background-color: #f8f9fa;
+      border-color: #ced4da;
+      box-shadow: none;
+    }
+  }
+
+  &.is-invalid {
+    border-color: #dc3545;
+
+    &:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+  }
+}
+
+.form-label {
+  color: #495057;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+
+  i {
+    width: 16px;
+    text-align: center;
+    color: #6c757d;
+  }
+}
+
+.badge {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.btn {
+  border-radius: 8px;
+  transition: all 0.15s ease-in-out;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+// Loading animation
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fa-spin {
+  animation: spin 1s linear infinite;
+}

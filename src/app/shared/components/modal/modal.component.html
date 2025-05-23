@@ -1,0 +1,29 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header text-white"
+        [ngClass]="{
+       'bg-success': type === ModalType.SUCCESS,
+       'bg-danger': type === ModalType.ERROR,
+       'bg-primary': type !== ModalType.INFO
+     }">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        {{ message }}
+      </div>
+
+      <div class="modal-footer">
+        @if (type === ModalType.CONFIRM) {
+          <button type="button" class="btn btn-danger" (click)="acceptModal()">Confirm</button>
+        }
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop fade show"></div>

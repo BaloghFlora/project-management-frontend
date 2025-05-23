@@ -1,0 +1,74 @@
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+
+  .card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border: none;
+  }
+
+  .card-footer {
+    border-radius: 0 0 15px 15px !important;
+    border: none;
+  }
+}
+
+.form-control[readonly] {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  cursor: default;
+
+  &:focus {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+    box-shadow: none;
+  }
+}
+
+.form-label {
+  color: #495057;
+  margin-bottom: 0.5rem;
+
+  i {
+    width: 16px;
+    text-align: center;
+  }
+}
+
+.badge {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.alert {
+  border-radius: 10px;
+
+  ul {
+    padding-left: 1.2rem;
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  h6 {
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+}
+
+.btn {
+  border-radius: 8px;
+}
