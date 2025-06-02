@@ -3,10 +3,10 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginRequest } from '../../../feature/authentication/models/login-request.model';
+import { RegisterRequest } from '../../../feature/authentication/models/register-request.model';
 import { UserResponse } from '../../../feature/profile/models/user-response.model';
 import { ROUTES } from '../../config/routes.enum';
 import { isLocalStorageAvailable } from '../../utils/storage-utils';
-
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,10 @@ export class AuthService implements OnInit {
 
   login(credentials: LoginRequest): Observable<void> {
     return this.http.post<void>(`/v1/${ROUTES.AUTH}/${ROUTES.LOGIN}`, credentials);
+  }
+
+  register(userData: RegisterRequest): Observable<UserResponse> {
+    return this.http.post<UserResponse>(`/v1/${ROUTES.AUTH}/${ROUTES.REGISTER}`, userData);
   }
 
   logout(): void {

@@ -1,7 +1,7 @@
-
 <div class="container py-4">
   <div class="row">
     <div class="col-12">
+      <!-- Header -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>
           <i class="fas fa-users me-2"></i>Team Management
@@ -11,10 +11,12 @@
             <i class="fas fa-sync-alt me-1"></i>
             Refresh
           </button>
+          @if (canCreateTeam()) {
           <button class="btn btn-primary" (click)="toggleAddForm()">
             <i class="fas fa-plus me-1"></i>
             Add New Team
           </button>
+          }
         </div>
       </div>
 
@@ -101,7 +103,7 @@
 </div>
       }
 
-      <!-- Teams Table -->
+      <!-- Loading State -->
       @if (loading && teams.length === 0) {
       <div class="card">
         <div class="card-body text-center py-5">
@@ -109,16 +111,22 @@
           <p class="text-muted">Loading teams...</p>
         </div>
       </div>
-      } @else if (error) {
+      }
+
+      <!-- Error State -->
+      @else if (error) {
       <div class="alert alert-danger">
         <i class="fas fa-exclamation-triangle me-2"></i>
       {{ error }}
       <button class="btn btn-outline-danger btn-sm ms-2" (click)="refreshTeams()">
-        <i class="fas fa-retry me-1"></i>
+        <i class="fas fa-redo me-1"></i>
         Retry
       </button>
     </div>
-      } @else if (teams.length > 0) {
+      }
+
+      <!-- Teams Table -->
+      @else if (teams.length > 0) {
       <div class="card">
         <div class="card-header bg-light">
           <div class="row align-items-center">
@@ -159,7 +167,7 @@
         <td>
           <div class="d-flex align-items-center">
             <div class="team-avatar me-2">
-              <i class="fas fa-users"></i>
+              <i class="fas fa-users text-primary"></i>
             </div>
             <div>
               <div class="fw-bold">{{ team.teamName }}</div>
@@ -174,13 +182,24 @@
           }
         </td>
         <td class="text-center">
-          <div class="btn-group" role="group">
+          <div class="btn-group" role="group" aria-label="Team actions">
+            <!-- View Details -->
             <a
               [routerLink]="[team.id]"
               class="btn btn-sm btn-outline-primary"
               title="View Details">
               <i class="fas fa-eye"></i>
             </a>
+
+            <!-- View Members -->
+            <a
+              [routerLink]="[team.id, 'members']"
+              class="btn btn-sm btn-outline-info"
+              title="View Members">
+              <i class="fas fa-users"></i>
+            </a>
+
+            <!-- Edit Team (Admin/PM only) -->
             @if (canEditTeam()) {
             <button
               class="btn btn-sm btn-outline-warning"
@@ -189,6 +208,8 @@
               <i class="fas fa-edit"></i>
             </button>
             }
+
+            <!-- Delete Team (Admin only) -->
             @if (canDeleteTeam()) {
             <button
               class="btn btn-sm btn-outline-danger"
@@ -205,30 +226,35 @@
     </table>
   </div>
 </div>
-      } @else {
+      }
+
+      <!-- Empty State -->
+      @else {
       <div class="card">
         <div class="card-body text-center py-5">
           <i class="fas fa-users fa-3x text-muted mb-3"></i>
           <h5 class="text-muted">No Teams Found</h5>
           <p class="text-muted">There are no teams available at the moment.</p>
-          <button class="btn btn-primary" (click)="toggleAddForm()">
-            <i class="fas fa-plus me-1"></i>
-            Create First Team
-          </button>
-        </div>
+          @if (canCreateTeam()) {
+      <button class="btn btn-primary" (click)="toggleAddForm()">
+        <i class="fas fa-plus me-1"></i>
+        Create First Team
+      </button>
+      }
+      </div>
+    </div>
+      }
+
+      <!-- Pagination -->
+      @if (totalPages > 1) {
+      <div class="mt-4">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          (pageChange)="onPageChange($event)">
+        </app-pagination>
       </div>
       }
     </div>
   </div>
 </div>
-
-<!-- Pagination -->
-@if (totalPages > 1) {
-<div class="mt-4">
-<app-pagination
-[currentPage]="currentPage"
-[totalPages]="totalPages"
-(pageChange)="onPageChange($event)">
-</app-pagination>
-</div>
-}

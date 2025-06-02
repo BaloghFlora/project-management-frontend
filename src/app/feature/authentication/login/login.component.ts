@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { ROUTES } from '../../../core/config/routes.enum';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { UserService } from '../../../core/services/user/user.service';
@@ -12,7 +12,7 @@ import { UserService } from '../../../core/services/user/user.service';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  imports: [ FormsModule, ReactiveFormsModule ]
+  imports: [FormsModule, ReactiveFormsModule, RouterLink]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;

@@ -32,6 +32,12 @@ export const routes: Routes = [
     }
   },
   {
+    path: ROUTES.TEAMS,
+    loadChildren: () => import('./feature/teams/teams.routes').then(m => m.routes),
+    canActivate: [isAuthenticated],
+    data: { authenticated: true, redirectUrl: `/${ROUTES.AUTH}` }
+  },
+  {
     path: ROUTES.PROFILE,
     loadChildren: () => import('./feature/profile/profile.routes').then(m => m.routes),
     canActivate: [ isAuthenticated ],

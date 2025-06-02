@@ -43,11 +43,14 @@
         }
       </div>
 
-      <div class="card-footer text-end">
-        <button type="submit" class="btn btn-outline-primary" [disabled]="loginForm.invalid">
-          <i class="fas fa-arrow-right"></i> Login
-        </button>
-      </div>
+      <div class="card-footer d-flex justify-content-between align-items-center">
+  <a [routerLink]="['/', 'auth', 'register']" class="btn btn-link">
+    <i class="fas fa-user-plus"></i> Create Account
+  </a>
+  <button type="submit" class="btn btn-outline-primary" [disabled]="loginForm.invalid">
+    <i class="fas fa-arrow-right"></i> Login
+  </button>
+</div>
     </form>
   } @else {
     <div class="alert alert-info text-center mt-4">Loading login form...</div>

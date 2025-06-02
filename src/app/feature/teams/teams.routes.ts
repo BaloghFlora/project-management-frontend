@@ -12,6 +12,14 @@ export const routes: Routes = [
     }
   },
   {
+    path: `${ROUTES.ID}/${ROUTES.MEMBERS}`,
+    loadComponent: () => import('./team-members/team-members.component').then(m => m.TeamMembersComponent),
+    canActivate: [hasAuthorization],
+    data: {
+      requiredRoles: ['ADMIN', 'PROJECT_MANAGER']
+    }
+  },
+  {
     path: ':id',
     loadComponent: () => import('./team/team.component').then(m => m.TeamComponent),
     canActivate: [ hasAuthorization ],
