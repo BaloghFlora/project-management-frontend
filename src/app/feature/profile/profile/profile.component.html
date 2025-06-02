@@ -2,7 +2,6 @@
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
 
-
       @if (!user) {
       <div class="alert alert-info text-center mt-4">
         <i class="fas fa-spinner fa-spin me-2"></i>
@@ -16,8 +15,8 @@
               <i class="fas fa-user fa-3x"></i>
             </div>
             <h4 class="mb-1">{{ user.name }}</h4>
-              <span class="badge"
-                    [ngClass]="{
+            <span class="badge"
+                  [ngClass]="{
       'bg-danger': user.role === Role.ADMIN,
       'bg-warning': user.role === Role.PROJECT_MANAGER,
       'bg-info': user.role === Role.TEAM_MEMBER
@@ -62,8 +61,8 @@
         <input type="text" class="form-control" [value]="getRoleDisplayName(user.role)" readonly/>
       </div>
 
-      <!-- Team Information -->
-      @if (user.teamId && user.teamName) {
+      <!-- Team Information - Updated Logic -->
+      @if (user.teamId !== null && user.teamId !== undefined && user.teamName) {
       <div class="col-md-6">
         <label class="form-label fw-bold">
           <i class="fas fa-users me-2 text-muted"></i>Team ID
@@ -77,6 +76,19 @@
         </label>
         <input type="text" class="form-control" [value]="user.teamName" readonly/>
       </div>
+
+      <!-- Additional team info -->
+      <div class="col-12">
+        <div class="alert alert-success">
+          <i class="fas fa-users me-2"></i>
+          You are a member of <strong>{{ user.teamName }}</strong>
+          @if (user.role === Role.ADMIN || user.role === Role.PROJECT_MANAGER) {
+          <a [routerLink]="['/teams', user.teamId, 'members']" class="btn btn-sm btn-outline-success ms-2">
+            <i class="fas fa-eye me-1"></i>View Team Members
+          </a>
+          }
+        </div>
+      </div>
       } @else {
       <div class="col-12">
         <label class="form-label fw-bold">
@@ -85,6 +97,8 @@
         <div class="alert alert-warning mb-0">
           <i class="fas fa-exclamation-triangle me-2"></i>
           Not assigned to any team
+          <br>
+          <small class="text-muted">Contact your administrator to be assigned to a team.</small>
         </div>
       </div>
       }
@@ -94,11 +108,26 @@
 
     <div class="card-footer bg-light">
       <div class="row align-items-center">
-
-      </div>
+        <div class="col">
+          <button class="btn btn-outline-primary" (click)="refreshProfile()" [disabled]="loading">
+            @if (loading) {
+      <i class="fas fa-spinner fa-spin me-1"></i>
+      Refreshing...
+      } @else {
+      <i class="fas fa-sync me-1"></i>
+      Refresh Profile
+      }
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-outline-secondary btn-sm" (click)="debugUserData()">
+        <i class="fas fa-bug me-1"></i>
+        Debug
+      </button>
     </div>
   </div>
-
+</div>
+</div>
       }
     </div>
   </div>
